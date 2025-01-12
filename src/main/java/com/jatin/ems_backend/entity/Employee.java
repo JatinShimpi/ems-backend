@@ -1,34 +1,30 @@
 package com.jatin.ems_backend.entity;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Primary;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="employees")
+@Document(collection = "employees")  // MongoDB collection name
 public class Employee {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id  // MongoDB primary key
+    private String id;  // MongoDB typically uses String type for the ID
 
-    @Column(name="first_name")
     private String firstName;
 
-    @Column(name="last_name")
     private String lastName;
 
-    @Column(name="email_id",nullable=false,unique = true)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="department_id") //foreign key
-    private Department department;
+    @DBRef  // MongoDB reference to another document (Department)
+    private Department department;  // Department is referenced by its ID in MongoDB
+
 }

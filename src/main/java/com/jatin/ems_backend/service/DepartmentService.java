@@ -7,13 +7,13 @@ import java.util.List;
 public interface DepartmentService {
     DepartmentDto createDepartment(DepartmentDto departmentDto);
 
-    DepartmentDto getDepartmentById(Long departmentId);
+    DepartmentDto getDepartmentById(String departmentId);
 
     List<DepartmentDto> getAllDepartments();
 
-    DepartmentDto updateDepartment(Long departmentId, DepartmentDto updatedDepartment);
+    DepartmentDto updateDepartment(String departmentId, DepartmentDto updatedDepartment);
 
-    void deleteDepartment(Long departmentId);
+    void deleteDepartment(String departmentId);
 
 
 }
