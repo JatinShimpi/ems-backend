@@ -16,6 +16,8 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() {
+
+
         MongoClient mongoClient = MongoClients.create(dotenv.get("MONGODB"));  // Mongo URI
         return new MongoTemplate(mongoClient, "your-database-name");  // Replace with your database name
     }

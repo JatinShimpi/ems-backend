@@ -1,0 +1,13 @@
+mvn clean package -DskipTests skips tests while building the jar file
+
+docker run -p 8080:8080 my-spring-boot-app
+
+docker build -t my-spring-boot-app .
+
+docker login
+
+docker tag my-spring-boot-app jatin998/ems-backend:latest
+
+docker push jatin998/ems-backend:latest
+
+major error on koyeb was related to mongodb blocking its servers ip which i added in koyeb to fix

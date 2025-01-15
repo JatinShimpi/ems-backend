@@ -17,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; // Impo
 import org.springframework.security.crypto.password.PasswordEncoder; // Import for password encoder interface
 import org.springframework.security.web.SecurityFilterChain; // Import for security filter chain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter; // Import for username/password authentication filter
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * Security configuration class to set up Spring Security.
@@ -101,7 +104,7 @@ public class WebSecurityConfig {
                     // Allow public access to auth endpoints
                     .requestMatchers("/api/test/**").permitAll()
                     // Allow public access to test endpoints
-                    .anyRequest().authenticated());
+                    .anyRequest().authenticated()).cors();
     // Require authentication for any other request
 
     http.authenticationProvider(authenticationProvider()); // Set the authentication provider
@@ -111,5 +114,17 @@ public class WebSecurityConfig {
             UsernamePasswordAuthenticationFilter.class);
 
     return http.build(); // Build and return the security filter chain
+  }
+
+  @Bean
+  public CorsFilter corsFilter() {
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.addAllowedOriginPattern("*"); // Allows any origin
+    config.addAllowedHeader("*"); // Allows any header
+    config.addAllowedMethod("*"); // Allows any HTTP method
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter(source);
   }
 }
